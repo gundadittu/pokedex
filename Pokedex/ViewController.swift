@@ -57,9 +57,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         do {
             let csv = try CSV(contentsOfURL: path)
             let rows = csv.rows
-            //print(rows)
             for row in rows {
-                let pokeId = Int(row["id"]!)!
+                let pokeId = String(row["id"]!)!
                 let name = row["identifier"]!
                 let poke = Pokemon(name: name, pokedexId: pokeId)
                 pokemons.append(poke)
@@ -117,8 +116,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PokemonDetailVC" {
             if let detailsVC = segue.destination as? PokemonDetailVC {
-                if let poke = sender as? Pokemon {
-                    detailsVC.poke = poke
+                if let obj = sender as? Pokemon {
+                    detailsVC.poke = obj
                 }
             }
         }
